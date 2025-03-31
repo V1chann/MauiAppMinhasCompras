@@ -44,6 +44,18 @@ namespace MauiAppMinhasCompras.Helpers
             return _conn.QueryAsync<Produto>(sql);
         }
 
+        public Task<List<GastoPorCategoria>> GetGastosPorCategoria()
+        {
+            string sql = "SELECT Categoria, SUM(Quantidade * Preco) AS Total FROM Produto GROUP BY Categoria";
+            return _conn.QueryAsync<GastoPorCategoria>(sql);
+        }
 
-    }   
+        public class GastoPorCategoria
+        {
+            public string Categoria { get; set; }
+            public double Total { get; set; }
+        }
+
+
+    }
 }
